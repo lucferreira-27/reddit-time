@@ -1,7 +1,6 @@
 {
-  "name": "express-main-example",
-  "version": "0.0.0",
-  "description": "This is an example of how to setup Sequelize and Express together in a project for NodeJS 10 and above.",
+  "name": "server",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
