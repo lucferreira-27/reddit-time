@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 
 const routes = {
 	users: require('./routes/users'),
+	posts: require('./routes/posts'),
+	states: require('./routes/states'),
+	// tracking: require('./routes/tracking'),
 	// Add more routes here...
 	// items: require('./routes/items'),
 };
@@ -23,43 +26,51 @@ function makeHandlerAwareOfAsyncErrors(handler) {
 	};
 }
 
-// We provide a root route just as an example
+
 app.get('/', (req, res) => {
 	res.redirect('/api/users')
 });
 
 // We define the standard REST APIs for each route (if they exist).
-for (const [routeName, routeController] of Object.entries(routes)) {
-	if (routeController.getAll) {
-		app.get(
-			`/api/${routeName}`,
-			makeHandlerAwareOfAsyncErrors(routeController.getAll)
-		);
+function defineRoutes(routes){
+	const defaultRoutes = () =>{
+		for (const [routeName, routeController] of Object.entries(routes)) {
+			if (routeController.getAll) {
+				app.get(
+					`/api/${routeName}`,
+					makeHandlerAwareOfAsyncErrors(routeController.getAll)
+				);
+			}
+			if (routeController.getById) {
+				app.get(
+					`/api/${routeName}/:id`,
+					makeHandlerAwareOfAsyncErrors(routeController.getById)
+				);
+			}
+			if (routeController.create) {
+				app.post(
+					`/api/${routeName}`,
+					makeHandlerAwareOfAsyncErrors(routeController.create)
+				);
+			}
+			if (routeController.update) {
+				app.put(
+					`/api/${routeName}/:id`,
+					makeHandlerAwareOfAsyncErrors(routeController.update)
+				);
+			}
+			if (routeController.remove) {
+				app.delete(
+					`/api/${routeName}/:id`,
+					makeHandlerAwareOfAsyncErrors(routeController.remove)
+				);
+			}
+		}
 	}
-	if (routeController.getById) {
-		app.get(
-			`/api/${routeName}/:id`,
-			makeHandlerAwareOfAsyncErrors(routeController.getById)
-		);
-	}
-	if (routeController.create) {
-		app.post(
-			`/api/${routeName}`,
-			makeHandlerAwareOfAsyncErrors(routeController.create)
-		);
-	}
-	if (routeController.update) {
-		app.put(
-			`/api/${routeName}/:id`,
-			makeHandlerAwareOfAsyncErrors(routeController.update)
-		);
-	}
-	if (routeController.remove) {
-		app.delete(
-			`/api/${routeName}/:id`,
-			makeHandlerAwareOfAsyncErrors(routeController.remove)
-		);
-	}
+	defaultRoutes()
 }
+defineRoutes(routes)
+
+
 
 module.exports = app;
