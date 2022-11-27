@@ -11,7 +11,18 @@ async function reset() {
 	]
 	await sequelize.models.User.bulkCreate(defaultUsers);
 	console.log('Creating default users!',defaultUsers);
+	/*
+	const defaultPosts = [
+		{ 
+			autoTracking: false,
+			comunityName: 'OnePiece',
+			postId: 'z4bush',
+		}
+	]
+	await sequelize.models.Post.bulkCreate(defaultPosts);
+	console.log('Creating default posts!',defaultPosts);
 
+	*/
 }
 
 reset();

@@ -20,9 +20,8 @@ module.exports = (sequelize) => {
         comunityName:{
             allowNull: false,
             type: DataTypes.STRING,
-            unique: true,
         },
-        states: {
+        status: {
             type: DataTypes.ENUM,
             values: ['recent_posted', 'pending_tracking','tracking' ,'post_deleted'],
             defaultValue: 'pending_tracking',

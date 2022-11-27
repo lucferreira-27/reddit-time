@@ -1,6 +1,7 @@
 const { models } = require('../../sequelize');
 const { getIdParam } = require('../helpers');
 
+
 async function getAll(req, res) {
 	const posts = await models.Post.findAll();
 	res.status(200).json(posts);
@@ -9,8 +10,9 @@ async function getAll(req, res) {
 async function getById(req, res) {
 	const id = getIdParam(req);
 	const post = await models.Post.findByPk(id);
+    const info = await trackPost(post)
 	if (post) {
-		res.status(200).json(post);
+		res.status(200).json({post,info});
 	} else {
 		res.status(404).send('404 - Not found');
 	}

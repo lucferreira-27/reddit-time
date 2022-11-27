@@ -1,3 +1,5 @@
+const path = require('path')
+require('dotenv').config({path:path.resolve(__dirname, './express/.env')})
 const app = require('./express/app');
 const sequelize = require('./sequelize');
 const PORT = 8080;

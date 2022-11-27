@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const tracking = require('./service/tracking')
 
 const routes = {
 	users: require('./routes/users'),
@@ -70,7 +71,7 @@ function defineRoutes(routes){
 	defaultRoutes()
 }
 defineRoutes(routes)
-
+tracking() // Tracking Posts
 
 
 module.exports = app;

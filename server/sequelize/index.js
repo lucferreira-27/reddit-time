@@ -1,14 +1,22 @@
+const path = require('path')
+require('dotenv').config({path:path.resolve(__dirname, '../express/.env')})
 const { Sequelize } = require('sequelize');
 const { applyExtraSetup } = require('./extra-setup');
 
 
-// const sequelize = new Sequelize(process.env.DB_CONNECTION_URL);
-const sequelize = new Sequelize({
+
+/*
+ #Datavase for tests
+{
 	dialect: 'sqlite',
 	storage: 'sqlite-example-database/example-db.sqlite',
 	logQueryParameters: true,
 	benchmark: true
-});
+}
+*/
+const DB_PASS = process.env.DB_PASS
+const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL.replace('YOUR-PASSWORD',DB_PASS)
+const sequelize = new Sequelize(DB_CONNECTION_URL);
 
 const modelDefiners = [
 	require('./models/user.model'),

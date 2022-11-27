@@ -1,9 +1,6 @@
 const { models } = require('../../sequelize');
 const { getIdParam } = require('../helpers');
-const auth = require('../service/reddit-auth')
 async function getAll(req, res) {
-	const token = await auth()
-	console.log(token)
 	const users = await models.User.findAll();
 	res.status(200).json(users);
 };
