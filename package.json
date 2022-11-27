@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Reddit Time is a post tracking tool for monitoring a post's growth.",
   "scripts": {
-    "client": "cd client && npm start",
-    "server": "cd server && npm run start-dev",
-    "start": "cd server && npm run start-prod"
+    "start-dev": "nodemon index.js",
+    "start": "node index.js",
+    "database": "node sqlite-example-database/setup.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,20 @@
   "bugs": {
     "url": "https://github.com/lucferreira-27/reddit-time/issues"
   },
-  "homepage": "https://github.com/lucferreira-27/reddit-time#readme"
+  "homepage": "https://github.com/lucferreira-27/reddit-time#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "body-parser": "^1.19.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "node-cron": "^3.0.2",
+    "node-schedule": "^2.1.0",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.3.3",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
