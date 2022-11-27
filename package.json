@@ -4,8 +4,8 @@
   "description": "Reddit Time is a post tracking tool for monitoring a post's growth.",
   "scripts": {
     "client": "cd client && npm start",
-    "server": "cd server && npm start-dev",
-    "start": "cd server && npm start-prod"
+    "server": "cd server && npm run start-dev",
+    "start": "cd server && npm run start-prod"
   },
   "repository": {
     "type": "git",
