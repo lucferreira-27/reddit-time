@@ -22,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/lucferreira-27/reddit-time/issues"
   },
-  "homepage": "https://github.com/lucferreira-27/reddit-time#readme",
-  "dependencies": {
-    "cron": "^2.1.0"
-  }
+  "homepage": "https://github.com/lucferreira-27/reddit-time#readme"
 }

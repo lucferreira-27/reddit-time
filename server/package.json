@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start-dev": "nodemon index.js",
-    "start-prod": "node index.js",
+    "start-prod": "npm install && node index.js",
     "database": "node sqlite-example-database/setup.js"
   },
   "engines": {
