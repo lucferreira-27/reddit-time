@@ -8,9 +8,9 @@ async function addJob(post, timePattern) {
         console.log("[CRON - JOB] ScheduleJob: ", post.postId)
 
         if (post.status != 'tracking') {
-            console.log("[CRON - JOB] Update Statu of ScheduleJob: ", post.postId + " pending => tracking")
+            console.log("[CRON - JOB] Update Status of ScheduleJob: ", post.postId + " pending => tracking")
             post.status = 'tracking'
-            await post.update({ status: 'tracking' })
+            await post.update({status:'tracking'})
         }
         let info = await trackPost(post)
         const changes = await getPostStateDiff(post, info)
@@ -67,17 +67,11 @@ async function stopTrackingPost(post) {
 module.exports = async () => {
 
 
-    if (Object.keys(cron.scheduledJobs).length == 0) {
-        const pendingPosts = await models.Post.findAll({
-            where: {
-                status: {
-                    $or: [
-                        'tracking','pending_tracking'
-                    ]
-                }
-            }
-        })
-        for (let post of pendingPosts) {
+    if(Object.keys(cron.scheduledJobs).length == 0){
+        const pendingPosts = await models.Post.findAll({where:{
+            status:'pending_tracking'
+        }})
+        for(let post of pendingPosts){
             addJob(post, '*/60 * * * * *')
         }
     }
