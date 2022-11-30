@@ -1,5 +1,5 @@
 const path = require('path')
-require('dotenv').config({path:path.resolve(__dirname, '../express/.env')})
+require('dotenv').config({ path: path.resolve(__dirname, '../express/.env') })
 const { Sequelize } = require('sequelize');
 const { applyExtraSetup } = require('./extra-setup');
 
@@ -15,7 +15,8 @@ const { applyExtraSetup } = require('./extra-setup');
 }
 */
 const DB_PASS = process.env.DB_PASS
-const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL.replace('YOUR-PASSWORD',DB_PASS)
+const DB_CONNECTION_URL = process.env.DB_CONNECTION_URL.replace('YOUR-PASSWORD', DB_PASS)
+
 const sequelize = new Sequelize(DB_CONNECTION_URL);
 
 const modelDefiners = [

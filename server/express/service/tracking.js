@@ -10,9 +10,10 @@ async function addJob(post, timePattern) {
         if (post.status != 'tracking') {
             console.log("[CRON - JOB] Update Status of ScheduleJob: ", post.postId + " pending => tracking")
             post.status = 'tracking'
-            await post.update({status:'tracking'})
+            await post.update({ status: 'tracking' })
         }
         let info = await trackPost(post)
+        if(!info){  return  }
         const changes = await getPostStateDiff(post, info)
         if (changes.anyChange) {
             await models.PostState.create({
@@ -28,11 +29,16 @@ async function addJob(post, timePattern) {
 }
 
 async function trackPost(post) {
-    const BASE_REDDIT_URL = "https://www.reddit.com/r/"
-    const url = BASE_REDDIT_URL + post.comunityName + "/" + post.postId
-    console.log(url)
-    const info = await getPostInfo(url)
-    return info
+    try {
+        const BASE_REDDIT_URL = "https://www.reddit.com/r/"
+        const url = BASE_REDDIT_URL + post.comunityName + "/" + post.postId
+        console.log(url)
+        const info = await getPostInfo(url)
+        return info
+    } catch (error) {
+        console.log(error.msg)
+        return null
+    }
 }
 
 async function getPostStateDiff(post, newState) {
@@ -67,11 +73,13 @@ async function stopTrackingPost(post) {
 module.exports = async () => {
 
 
-    if(Object.keys(cron.scheduledJobs).length == 0){
-        const pendingPosts = await models.Post.findAll({where:{
-            status:'pending_tracking'
-        }})
-        for(let post of pendingPosts){
+    if (Object.keys(cron.scheduledJobs).length == 0) {
+        const pendingPosts = await models.Post.findAll({
+            where: {
+                status: 'tracking'
+            }
+        })
+        for (let post of pendingPosts) {
             addJob(post, '*/60 * * * * *')
         }
     }
